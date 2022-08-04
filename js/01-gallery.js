@@ -24,25 +24,30 @@ function galleryElMarkup({ preview, original, description }) {
 function onGalleryItemOpen(e) {
   e.preventDefault();
 
-  window.addEventListener(
-    'keydown',
-    e => {
-      console.log(e.code);
-      if (e.code === 'Escape') {
-        instance.close();
-      }
-    },
-    { once: true }
-  );
-
-  const instance = basicLightbox.create(`
-<div class="modal">
+  const instance = basicLightbox.create(
+    `
+  <div class="modal">
     <img
     class="modal__image"
     src="${e.target.dataset.source}"
     />
-</div>
-`);
+  </div>
+  `,
+    {
+      onShow: instance => {
+        window.addEventListener('keydown', onEscPress);
+      },
+      onClose: instance => {
+        window.removeEventListener('keydown', onEscPress);
+      },
+    }
+  );
+
+  function onEscPress(e) {
+    if (e.code === 'Escape') {
+      instance.close();
+    }
+  }
 
   instance.show();
 }

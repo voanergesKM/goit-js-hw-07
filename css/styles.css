@@ -44,6 +44,6 @@
 }
 
 .modal__image {
-  /* width: auto; */
-  max-height: 95vh;
+  max-width: 68vw;
+  max-height: auto;
 }
