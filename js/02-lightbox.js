@@ -9,13 +9,13 @@ gallery.insertAdjacentHTML('afterbegin', galleryMarkup);
 
 gallery.addEventListener('click', onGalleryItemOpen);
 
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 function onGalleryItemOpen(e) {
   e.preventDefault();
-
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
 }
 
 function getGalleryMarkup({ preview, original, description }) {
