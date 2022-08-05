@@ -10,6 +10,7 @@ galleryThumbEl.insertAdjacentHTML('afterbegin', galleryMarkup);
 
 function galleryElMarkup({ preview, original, description }) {
   return `<div class="gallery__item">
+
   <a class="gallery__link" href="${original}">
       <img
         class="gallery__image"
@@ -24,6 +25,8 @@ function galleryElMarkup({ preview, original, description }) {
 function onGalleryItemOpen(e) {
   e.preventDefault();
 
+  if (e.target.nodeName !== 'IMG') return;
+
   const instance = basicLightbox.create(
     `
   <div class="modal">
@@ -36,6 +39,7 @@ function onGalleryItemOpen(e) {
     {
       onShow: instance => {
         window.addEventListener('keydown', onEscPress);
+        instance.element().querySelector('img').onclick = instance.close;
       },
       onClose: instance => {
         window.removeEventListener('keydown', onEscPress);
